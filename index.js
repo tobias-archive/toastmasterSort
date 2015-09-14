@@ -11,39 +11,44 @@ prompt.delimiter = "";
 
 var processFile = function(file) {
 
-	console.log(file)
-
-	fs.readFile(file, "utf8", function( err, data ) {
+	fs.readFile('Membership(1).csv', "utf8", function( err, data ) {
 
 		if (err) {
 			console.log("No file by name file, ending script...")
 			process.exit(1);
 		}
 
-		var array = data.toString().split("\n");
+		// console.log(data)
 
-		array.pop()
+		var array = data.toString().split("%%%^^%");
+
+		// array.pop()
 		array.shift();
 
-	    array.forEach(function(element) {
+	    array.forEach(function(element, i) {
 	  
-	    	element = element.replace(/","/g, "--");
+	    	// element = element.replace(/","/g, "--");
 
-			elements = element.split('--');
+			elements = element.split(',');
 
-			var email = elements[9];
-			var name = elements[1];
-			var phone = elements[10];
-			var joined = elements[15];
 
-			name = name.replace(', ACB','').replace(', CC','').replace(', CL','').replace(', ALB','')
 
-			var name = name.split(' ');
+			var email = elements[27];
+			var fname = elements[13];
+			var lname = elements[12]
+			var phone = elements[26];
+			var joined = elements[8];
 
-			lastName = name.pop();
-			firstName = name.shift()
+			console.log(elements[27])
 
-			var string = firstName+','+lastName+',Member,'+email+','+phone+','+joined+'\n';
+			// name = name.replace(', ACB','').replace(', CC','').replace(', CL','').replace(', ALB','')
+
+			// var name = name.split(' ');
+
+			// lastName = name.pop();
+			// firstName = name.shift()
+
+			var string = fname+','+lname+',Member,'+email+','+phone+','+joined+'\n';
 
 			fs.appendFile("membership.txt", string)
 
